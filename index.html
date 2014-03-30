@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>spacecentre</title>
+		<link rel="stylesheet" href="web.css"/>
+		<script src="jquery.min.js"></script>
+		<script>
+			var randomnumber=Math.floor(Math.random()*3)
+			$(document).ready(function () {
+				$('html').css({'background': 'url(images/bg-' + randomnumber + '.jpg) no-repeat center center fixed', '-webkit-background-size': 'cover', '-moz-background-size': 'cover', '-o-background-size': 'cover', 'background-size': 'cover'});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="spacecentre-logo"> </div>
+	</body>
+</html>
