@@ -18,6 +18,8 @@ Everything is static in `public/`, no build step.
   version from esawebb.org or esahubble.org, convert with `cwebp -q 80 -resize 2560 0`,
   and add an entry to the `IMAGES` list at the top of `main.js`.
 - `fonts/` self-hosts Syncopate 700 (OFL) for the wordmark.
+- `icon/` has the constellation mark as SVG (dark and transparent) and as 512/1024px PNGs,
+  alone and over four of the nebula images, for use as avatars elsewhere.
 
 ## Hosting
 
