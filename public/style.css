@@ -1,0 +1,254 @@
+@font-face {
+	font-family: "Syncopate";
+	font-weight: 700;
+	font-display: swap;
+	src: url(fonts/syncopate-700.woff2) format("woff2");
+}
+
+:root {
+	--void: #05060B;
+	--stardust: #F3F1EA;
+	--ion: #7FD6FF;
+	--nebula: #FF7AD9;
+	--dust: #8E93A3;
+	--split: 0px;      /* chromatic split distance, driven by JS */
+	--split-y: 0px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+	height: 100%;
+	margin: 0;
+	background: var(--void);
+	color: var(--stardust);
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+	font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	cursor: crosshair;
+}
+
+/* ---------- scene ---------- */
+
+#space, #stars {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+#space {
+	opacity: 0;
+	transition: opacity 2.4s ease;
+}
+#space.ready { opacity: 1; }
+
+#stars {
+	mix-blend-mode: screen;
+	pointer-events: none;
+}
+
+/* ---------- centre ---------- */
+
+#centre::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 110vmin;
+	height: 110vmin;
+	transform: translate(-50%, -50%);
+	background: radial-gradient(circle, rgba(5, 6, 11, 0.5) 0%, rgba(5, 6, 11, 0.28) 28%, rgba(5, 6, 11, 0) 62%);
+	pointer-events: none;
+	z-index: -1;
+}
+
+#centre {
+	position: fixed;
+	inset: 0;
+	display: grid;
+	place-content: center;
+	justify-items: center;
+	gap: clamp(14px, 2.4vh, 26px);
+	pointer-events: none;
+	transform: translate3d(calc(var(--split) * -1.2), calc(var(--split-y) * -1.2), 0);
+}
+
+#mark {
+	width: clamp(170px, 31vmin, 310px);
+	height: auto;
+	overflow: visible;
+	filter: drop-shadow(0 0 18px rgba(127, 214, 255, 0.18));
+}
+
+#mark .ring {
+	fill: none;
+	stroke: var(--stardust);
+	stroke-width: 0.8;
+	opacity: 0;
+	transform-origin: 100px 100px;
+	transform: scale(0.9);
+	animation: ring-in 2.4s cubic-bezier(.2,.7,.2,1) 0.2s forwards;
+}
+
+#mark .dust circle {
+	fill: var(--stardust);
+	opacity: 0;
+	animation: twinkle 5s ease-in-out infinite alternate;
+	animation-delay: calc(var(--d, 0) * 1s + 1.6s);
+}
+#mark .dust circle:nth-child(1) { --d: 0.4 } #mark .dust circle:nth-child(2) { --d: 1.3 }
+#mark .dust circle:nth-child(3) { --d: 2.1 } #mark .dust circle:nth-child(4) { --d: 0.9 }
+#mark .dust circle:nth-child(5) { --d: 2.8 } #mark .dust circle:nth-child(6) { --d: 1.7 }
+
+#mark .line {
+	fill: none;
+	stroke: var(--stardust);
+	stroke-width: 3.1;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	stroke-dasharray: 1;
+	stroke-dashoffset: 1;
+	filter: url(#glow);
+	animation: draw 1.8s cubic-bezier(.65,0,.35,1) 0.5s forwards;
+}
+
+#mark .pulse {
+	fill: none;
+	stroke: var(--ion);
+	stroke-width: 4;
+	stroke-linecap: round;
+	stroke-dasharray: 0.12 1;
+	stroke-dashoffset: 0.12;
+	opacity: 0;
+	filter: url(#glow);
+	animation: pulse 7s cubic-bezier(.4,0,.6,1) 3s infinite;
+}
+
+#mark .stars g {
+	opacity: 0;
+	transform-origin: center;
+	transform-box: fill-box;
+	transform: scale(0.2);
+	animation: star-in 0.9s cubic-bezier(.2,1.4,.4,1) forwards;
+	animation-delay: calc(0.55s + var(--i) * 0.19s);
+}
+#mark .stars .core {
+	fill: var(--stardust);
+	filter: url(#glow);
+}
+#mark .stars .halo {
+	fill: var(--stardust);
+	opacity: 0.22;
+	filter: url(#bigglow);
+	animation: breathe 4s ease-in-out infinite alternate;
+	animation-delay: calc(var(--i) * -0.7s);
+}
+
+#wordmark {
+	position: relative;
+	margin: 0;
+	font-family: "Syncopate", "Avenir Next", "Helvetica Neue", sans-serif;
+	font-weight: 700;
+	font-size: clamp(16px, 3.1vmin, 32px);
+	letter-spacing: 0.42em;
+	text-indent: 0.42em; /* balance the trailing letter-space so the word is optically centred */
+	text-transform: uppercase;
+	line-height: 1;
+	color: var(--stardust);
+	opacity: 0;
+	animation: word-in 1.6s ease 1.9s forwards;
+	text-shadow: 0 0 24px rgba(243, 241, 234, 0.25);
+}
+#wordmark::before, #wordmark::after {
+	content: attr(data-text);
+	position: absolute;
+	inset: 0;
+	mix-blend-mode: screen;
+	pointer-events: none;
+	text-shadow: none;
+}
+#wordmark::before {
+	color: var(--ion);
+	transform: translate(calc(var(--split) * -1), calc(var(--split-y) * -1));
+}
+#wordmark::after {
+	color: var(--nebula);
+	transform: translate(var(--split), var(--split-y));
+}
+
+/* ---------- corners ---------- */
+
+#caption, #credit {
+	position: fixed;
+	bottom: max(18px, env(safe-area-inset-bottom));
+	margin: 0;
+	font-size: 12px;
+	letter-spacing: 0.04em;
+	color: var(--dust);
+	opacity: 0;
+	animation: fade-in 1.2s ease 3s forwards;
+}
+#caption { left: max(22px, env(safe-area-inset-left)); }
+#credit { right: max(22px, env(safe-area-inset-right)); }
+
+#caption a, #credit a {
+	color: inherit;
+	text-decoration: none;
+	transition: color 0.4s ease;
+}
+#caption a:hover, #credit a:hover,
+#caption a:focus-visible, #credit a:focus-visible {
+	color: var(--stardust);
+	outline: none;
+}
+#caption a:focus-visible, #credit a:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+#caption-name {
+	display: block;
+	color: var(--stardust);
+	transition: opacity 0.8s ease;
+}
+#caption-source { display: block; margin-top: 3px; }
+#caption.swap #caption-name, #caption.swap #caption-source { opacity: 0; transition: opacity 0.3s ease; }
+
+@media (max-width: 600px) {
+	#credit { display: none; }
+	#caption { font-size: 11px; }
+}
+
+/* ---------- motion ---------- */
+
+@keyframes draw      { to { stroke-dashoffset: 0; } }
+@keyframes ring-in   { to { opacity: 0.22; transform: scale(1); } }
+@keyframes star-in   { to { opacity: 1; transform: scale(1); } }
+@keyframes word-in   { to { opacity: 1; } }
+@keyframes fade-in   { to { opacity: 1; } }
+@keyframes breathe   { from { opacity: 0.14; } to { opacity: 0.34; } }
+@keyframes twinkle   { 0% { opacity: 0.15; } 50% { opacity: 0.75; } 100% { opacity: 0.25; } }
+@keyframes pulse {
+	0%   { stroke-dashoffset: 0.12; opacity: 0; }
+	6%   { opacity: 0.9; }
+	34%  { stroke-dashoffset: -1; opacity: 0.9; }
+	40%  { stroke-dashoffset: -1; opacity: 0; }
+	100% { stroke-dashoffset: -1; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#mark .ring, #mark .line, #mark .stars g, #wordmark, #caption, #credit {
+		animation: none;
+		opacity: 1;
+		transform: none;
+		stroke-dashoffset: 0;
+	}
+	#mark .ring { opacity: 0.22; }
+	#mark .pulse, #mark .dust circle, #mark .stars .halo { animation: none; }
+	#mark .dust circle { opacity: 0.4; }
+	#space { transition: opacity 0.8s ease; }
+	#centre { transform: none; }
+	html { cursor: default; }
+}

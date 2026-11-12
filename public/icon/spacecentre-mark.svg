@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="1024" height="1024">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigglow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect width="200" height="200" fill="#05060B"/>
+  <g transform="translate(100 100) scale(0.78) translate(-100 -100)">
+    <circle cx="100" cy="100" r="96" fill="none" stroke="#F3F1EA" stroke-width="0.8" opacity="0.22"/>
+    <g fill="#F3F1EA" opacity="0.45">
+      <circle cx="170" cy="72" r="1.4"/><circle cx="31" cy="118" r="1.1"/>
+      <circle cx="162" cy="184" r="1.2"/><circle cx="42" cy="28" r="1"/>
+      <circle cx="128" cy="62" r="0.9"/><circle cx="72" cy="140" r="0.9"/>
+    </g>
+    <polyline points="150,40 100,25 55,55 85,95 120,110 145,150 100,175 50,160" fill="none" stroke="#F3F1EA" stroke-width="3.1" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)"/>
+    <g fill="#F3F1EA" opacity="0.24" filter="url(#bigglow)">
+      <circle cx="150" cy="40" r="11"/><circle cx="100" cy="25" r="17"/><circle cx="55" cy="55" r="12"/>
+      <circle cx="85" cy="95" r="10"/><circle cx="120" cy="110" r="17"/><circle cx="145" cy="150" r="11"/>
+      <circle cx="100" cy="175" r="17"/><circle cx="50" cy="160" r="12"/>
+    </g>
+    <g fill="#F3F1EA" filter="url(#glow)">
+      <circle cx="150" cy="40" r="4.3"/><circle cx="100" cy="25" r="6.4"/><circle cx="55" cy="55" r="4.8"/>
+      <circle cx="85" cy="95" r="3.9"/><circle cx="120" cy="110" r="6.4"/><circle cx="145" cy="150" r="4.3"/>
+      <circle cx="100" cy="175" r="6.4"/><circle cx="50" cy="160" r="4.8"/>
+    </g>
+  </g>
+</svg>
