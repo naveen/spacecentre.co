@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>spacecentre</title>
+		<meta name="description" content="spacecentre — a studio on Centre Street, Manhattan.">
+		<link rel="icon" href="favicon.ico">
+		<link rel="stylesheet" href="web.css">
+		<script>
+			// Pick one of the three studio photos before first paint (no flash of bg-0).
+			document.documentElement.style.backgroundImage =
+				'url(images/bg-' + Math.floor(Math.random() * 3) + '.jpg)';
+		</script>
+	</head>
+	<body>
+		<div id="spacecentre-logo" role="img" aria-label="spacecentre"></div>
+	</body>
+</html>

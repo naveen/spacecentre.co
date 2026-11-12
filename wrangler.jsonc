@@ -1,0 +1,14 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "spacecentre",
+	"compatibility_date": "2026-11-12",
+	// Static site: everything in ./public is served directly from Cloudflare's edge.
+	"assets": {
+		"directory": "./public"
+	},
+	"workers_dev": true,
+	"routes": [
+		{ "pattern": "spacecentre.co", "custom_domain": true },
+		{ "pattern": "www.spacecentre.co", "custom_domain": true }
+	]
+}

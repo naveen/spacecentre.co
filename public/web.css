@@ -1,0 +1,20 @@
+html {
+	background: #1b1d22 url(images/bg-0.jpg) no-repeat center center fixed;
+	background-size: cover;
+	min-height: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+#spacecentre-logo {
+	background: url(images/spacecentre-logo.png) no-repeat center / contain;
+	width: 300px;
+	height: 140px;
+	max-width: 80vw;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
