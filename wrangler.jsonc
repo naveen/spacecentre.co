@@ -1,6 +1,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "spacecentre",
+	"account_id": "195fc967eba6d84b510da28558ee4098",
 	"compatibility_date": "2026-11-12",
 	// Static site: everything in ./public is served directly from Cloudflare's edge.
 	"assets": {
